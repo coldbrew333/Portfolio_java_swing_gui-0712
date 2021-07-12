@@ -13,18 +13,18 @@ import com.example.domain.BookVO;
 
 public class BookDAO {
 
-	// DBÁ¢¼ÓÁ¤º¸
+	// DBì ‘ì†ì •ë³´
 	private final String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	private final String user = "myuser";
 	private final String passwd = "1234";
 
-	// DBÁ¢¼Ó ÈÄ Ä¿³Ø¼Ç °´Ã¼ °¡Á®¿À´Â ¸Ş¼Òµå
+	// DBì ‘ì† í›„ ì»¤ë„¥ì…˜ ê°ì²´ ê°€ì ¸ì˜¤ëŠ” ë©”ì†Œë“œ
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
 		Connection con = null;
 
-		// 1´Ü°è. JDBC µå¶óÀÌ¹ö ·Îµù
+		// 1ë‹¨ê³„. JDBC ë“œë¼ì´ë²„ ë¡œë”©
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		// 2´Ü°è. DB¿¬°á
+		// 2ë‹¨ê³„. DBì—°ê²°
 		con = DriverManager.getConnection(url, user, passwd);
 
 		return con;
@@ -35,7 +35,7 @@ public class BookDAO {
 	}
 
 	private void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
-		// JDBC ÀÚ¿ø ´İ±â (»ç¿ëÀÇ ¿ª¼øÀ¸·Î ´İÀ½)
+		// JDBC ìì› ë‹«ê¸° (ì‚¬ìš©ì˜ ì—­ìˆœìœ¼ë¡œ ë‹«ìŒ)
 		try {
 			if (rs != null) {
 				rs.close();
@@ -61,7 +61,7 @@ public class BookDAO {
 		}
 	} // close
 
-	// Ã¥µî·ÏÇÏ±â
+	// ì±…ë“±ë¡í•˜ê¸°
 	public void insertBook(BookVO bookVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -70,16 +70,17 @@ public class BookDAO {
 			con = getConnection();
 
 			String sql = "";
-			sql += "INSERT INTO Book (num,name,writer,publisher, kategorie, count, reg_date) ";
-			sql += "VALUES (seq_book.nextval, ?, ?, ?, ?, ?,?) ";
+			sql += "INSERT INTO Book (num,name,writer,publisher, kategorie,location ,count, reg_date) ";
+			sql += "VALUES (seq_book.nextval, ?, ?, ?, ?, ?,?,?) ";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bookVO.getName());
 			pstmt.setString(2, bookVO.getWriter());
 			pstmt.setString(3, bookVO.getPublisher());
 			pstmt.setString(4, bookVO.getKategorie());
-			pstmt.setString(5, bookVO.getCount());
-			pstmt.setTimestamp(6, bookVO.getRegdate());
+			pstmt.setString(5, bookVO.getLocation());
+			pstmt.setString(6, bookVO.getCount());
+			pstmt.setTimestamp(7, bookVO.getRegdate());
 
 			pstmt.executeUpdate();
 
@@ -91,9 +92,9 @@ public class BookDAO {
 
 	}// insertBook()
 
-	// ÄŞº¸¹Ú½º °Ë»öÇÏ±â
+	// ì½¤ë³´ë°•ìŠ¤ ê²€ìƒ‰í•˜ê¸°
 
-	public List<BookVO> search(String field, String word) {// <-¿©±â ºÎºĞ ¿Ö ¿À·ù°¡ ³¯±î?
+	public List<BookVO> search(String field, String word) {
 		List<BookVO> list = new ArrayList<>();
 
 		Connection con = null;
@@ -117,6 +118,7 @@ public class BookDAO {
 				bookVO.setWriter(rs.getString("writer"));
 				bookVO.setPublisher(rs.getString("publisher"));
 				bookVO.setKategorie(rs.getString("kategorie"));
+				bookVO.setLocation(rs.getString("location"));
 				bookVO.setCount(rs.getString("count"));
 				bookVO.setRegdate(rs.getTimestamp("reg_date"));
 
@@ -132,7 +134,7 @@ public class BookDAO {
 		return list;
 	}// search
 
-//Åì¾Æº¸±â
+//í†ºì•„ë³´ê¸°
 	public List<BookVO> getBooks() {
 		List<BookVO> list = new ArrayList<>();
 
@@ -158,6 +160,7 @@ public class BookDAO {
 				bookVO.setWriter(rs.getString("writer"));
 				bookVO.setPublisher(rs.getString("publisher"));
 				bookVO.setKategorie(rs.getString("kategorie"));
+				bookVO.setLocation(rs.getString("location"));
 				bookVO.setCount(rs.getString("count"));
 				bookVO.setRegdate(rs.getTimestamp("reg_date"));
 
@@ -173,7 +176,7 @@ public class BookDAO {
 		return list;
 	}
 
-	// ¼öÁ¤ÇÏ±â
+	// ìˆ˜ì •í•˜ê¸°
 	public void updateBooks(BookVO bookVO) {
 
 		Connection con = null;
@@ -184,7 +187,7 @@ public class BookDAO {
 
 			String sql = "	UPDATE book";
 			sql += "	SET name=?,writer=?,publisher=?,";
-			sql += "	kategorie=?,count=?,reg_date=?";
+			sql += "	kategorie=?,location=?,count=?,reg_date=?";
 			sql += "	WHERE num=?";
 
 			pstmt = con.prepareStatement(sql);
@@ -192,9 +195,10 @@ public class BookDAO {
 			pstmt.setString(2, bookVO.getWriter());
 			pstmt.setString(3, bookVO.getPublisher());
 			pstmt.setString(4, bookVO.getKategorie());
-			pstmt.setString(5, bookVO.getCount());
-			pstmt.setTimestamp(6, bookVO.getRegdate());
-			pstmt.setInt(7, bookVO.getNum());
+			pstmt.setString(5, bookVO.getLocation());
+			pstmt.setString(6, bookVO.getCount());
+			pstmt.setTimestamp(7, bookVO.getRegdate());
+			pstmt.setInt(8, bookVO.getNum());
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -205,7 +209,7 @@ public class BookDAO {
 
 	}// updateBooks
 
-	// »èÁ¦ÇÏ±â
+	// ì‚­ì œí•˜ê¸°
 
 	public void removeByNum(int num) {
 
@@ -231,6 +235,6 @@ public class BookDAO {
 
 	}// removeBynum
 
-	// main¿¡ ÀÌ¹ÌÁö ³Ö±â
+	// mainì— ì´ë¯¸ì§€ ë„£ê¸°
 
 }// public class BookDAO
