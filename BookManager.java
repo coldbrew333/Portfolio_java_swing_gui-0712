@@ -91,9 +91,6 @@ public class BookManager extends JFrame {
 	private JLabel lblCount1;
 	private JTextField tfCount1;
 	private JScrollPane scrollPane;
-	private JPanel panel_5;
-	private JTextField tfNum;
-	private JLabel lblNum;
 	private JPanel panel_6;
 	private JLabel lblBackImage;
 	private JLabel lblStorage;
@@ -104,6 +101,10 @@ public class BookManager extends JFrame {
 	private JTextArea textArea;
 	private JScrollPane scrollPane_3;
 	private JTextArea textArea_1;
+	private JTextField tfLocation;
+	private JPanel panel_5;
+	private JLabel lblLocation1;
+	private JTextField tfLocation1;
 
 	public static void main(String[] args) {
 		new BookManager();
@@ -111,7 +112,7 @@ public class BookManager extends JFrame {
 	}// main
 
 	public BookManager() {
-		super("Ã¥°ü¸®");
+		super("ì±…ê´€ë¦¬");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(435, 700);
 		setLocationByPlatform(true);
@@ -129,6 +130,7 @@ public class BookManager extends JFrame {
 		tfWriter.setText("");
 		tfPublisher.setText("");
 		tfKategorie.setText("");
+		tfLocation.setText("");
 		tfCount.setText("");
 	} // clearInput
 	
@@ -139,6 +141,7 @@ public class BookManager extends JFrame {
 		tfWriter1.setText("");
 		tfPublisher1.setText("");
 		tfKategorie1.setText("");
+		tfLocation1.setText("");
 		tfCount1.setText("");
 	} // clearInput
 	
@@ -148,9 +151,9 @@ public class BookManager extends JFrame {
 	private JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-			tabbedPane.addTab("¸ŞÀÎ", null, getPanel_6_1(), null);
-			tabbedPane.addTab("±â·Ï", null, getPanel1(), null);
-			tabbedPane.addTab("ÀüÃ¼º¸±â", null, getPanel5(), null);
+			tabbedPane.addTab("ë©”ì¸", null, getPanel_6_1(), null);
+			tabbedPane.addTab("ê¸°ë¡", null, getPanel1(), null);
+			tabbedPane.addTab("ì „ì²´ë³´ê¸°", null, getPanel5(), null);
 		}
 		return tabbedPane;
 	}
@@ -207,13 +210,22 @@ public class BookManager extends JFrame {
 			panel2.add(getBtnRegister());
 			panel2.add(getLblKategorie());
 			panel2.add(getTfKategorie());
+			
+			tfLocation = new JTextField();
+			tfLocation.setBounds(257, 42, 116, 21);
+			panel2.add(tfLocation);
+			tfLocation.setColumns(10);
+			
+			JLabel lblLocation = new JLabel("\uC704\uCE58");
+			lblLocation.setBounds(180, 45, 57, 15);
+			panel2.add(lblLocation);
 		}
 		return panel2;
 	}
 
 	private JLabel getLblName() {
 		if (lblName == null) {
-			lblName = new JLabel("Ã¥Á¦¸ñ");
+			lblName = new JLabel("ì±…ì œëª©");
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 			lblName.setBounds(0, 12, 55, 18);
 		}
@@ -222,7 +234,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblWriter() {
 		if (lblWriter == null) {
-			lblWriter = new JLabel("ÀÛ°¡");
+			lblWriter = new JLabel("ì‘ê°€");
 			lblWriter.setHorizontalAlignment(SwingConstants.LEFT);
 			lblWriter.setBounds(10, 43, 55, 18);
 		}
@@ -231,7 +243,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblPublisher() {
 		if (lblPublisher == null) {
-			lblPublisher = new JLabel("ÃâÆÇ»ç");
+			lblPublisher = new JLabel("ì¶œíŒì‚¬");
 			lblPublisher.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPublisher.setBounds(0, 73, 55, 18);
 		}
@@ -240,18 +252,18 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblCount() {
 		if (lblCount == null) {
-			lblCount = new JLabel("°¡°İ");
+			lblCount = new JLabel("ê°€ê²©");
 			lblCount.setHorizontalAlignment(SwingConstants.LEFT);
-			lblCount.setBounds(182, 43, 55, 18);
+			lblCount.setBounds(182, 73, 55, 18);
 		}
 		return lblCount;
 	}
 
 	private JLabel getLblRegDate() {
 		if (lblRegDate == null) {
-			lblRegDate = new JLabel("±¸ÀÔÇÑ ³¯Â¥");
+			lblRegDate = new JLabel("êµ¬ì…í•œ ë‚ ì§œ");
 			lblRegDate.setHorizontalAlignment(SwingConstants.CENTER);
-			lblRegDate.setBounds(180, 73, 72, 18);
+			lblRegDate.setBounds(175, 105, 72, 18);
 		}
 		return lblRegDate;
 	}
@@ -286,7 +298,7 @@ public class BookManager extends JFrame {
 	private JTextField getTfCount() {
 		if (tfCount == null) {
 			tfCount = new JTextField();
-			tfCount.setBounds(251, 41, 114, 22);
+			tfCount.setBounds(259, 72, 114, 22);
 			tfCount.setColumns(10);
 		}
 		return tfCount;
@@ -295,7 +307,7 @@ public class BookManager extends JFrame {
 	private JTextField getTfRegDate() {
 		if (tfRegDate == null) {
 			tfRegDate = new JTextField();
-			tfRegDate.setBounds(251, 71, 114, 22);
+			tfRegDate.setBounds(259, 104, 114, 22);
 			tfRegDate.setColumns(10);
 		}
 		return tfRegDate;
@@ -303,14 +315,14 @@ public class BookManager extends JFrame {
 
 	private JButton getBtnRegister() {
 		if (btnRegister == null) {
-			btnRegister = new JButton("µî·ÏÇÏ±â");
+			btnRegister = new JButton("ë“±ë¡í•˜ê¸°");
 			btnRegister.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
 					String name = tfName.getText();
 					if (name.length() == 0) {
-						JOptionPane.showMessageDialog(BookManager.this, "ÀÔ·ÂÇØÁÖ¼¼¿ä", "error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(BookManager.this, "ì…ë ¥í•´ì£¼ì„¸ìš”", "error", JOptionPane.ERROR_MESSAGE);
 						tfName.requestFocus();
 						return;
 					} // IF
@@ -320,23 +332,24 @@ public class BookManager extends JFrame {
 					bookVO.setWriter(tfWriter.getText());
 					bookVO.setPublisher(tfPublisher.getText());
 					bookVO.setKategorie(tfKategorie.getText());
+					bookVO.setLocation(tfLocation.getText());
 					bookVO.setCount(tfCount.getText());
 					bookVO.setRegdate(new Timestamp(System.currentTimeMillis()));
 
 					bookDAO.insertBook(bookVO);// DB INSERT
 
-					JOptionPane.showMessageDialog(BookManager.this, "µî·Ï¿Ï·áµÇ¾ú½À´Ï´Ù", "µî·Ï¿Ï·á",
+					JOptionPane.showMessageDialog(BookManager.this, "ë“±ë¡ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤", "ë“±ë¡ì™„ë£Œ",
 							JOptionPane.INFORMATION_MESSAGE);
 
-					// ºñ¿ì±â
+					// ë¹„ìš°ê¸°
 					clearInput();
 
 				}// action
 			});
-			btnRegister.setFont(new Font("HY¸ñ°¢ÆÄÀÓB", Font.BOLD, 15));
+			btnRegister.setFont(new Font("HYëª©ê°íŒŒì„B", Font.BOLD, 15));
 			btnRegister.setForeground(new Color(102, 102, 102));
 			btnRegister.setBackground(new Color(204, 204, 204));
-			btnRegister.setBounds(139, 121, 98, 28);
+			btnRegister.setBounds(139, 141, 98, 28);
 		}
 		return btnRegister;
 	}
@@ -378,7 +391,7 @@ public class BookManager extends JFrame {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] { "¼±ÅÃ..", "Á¦¸ñ", "ÃâÆÇ»ç", "ÀÛ°¡", "Ä«Å×°í¸®" }));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] { "ì„ íƒ..", "ì œëª©", "ì¶œíŒì‚¬", "ì‘ê°€", "ì¹´í…Œê³ ë¦¬","ìœ„ì¹˜" }));
 			comboBox.setBounds(12, 26, 65, 27);
 		}
 		return comboBox;
@@ -395,20 +408,20 @@ public class BookManager extends JFrame {
 
 	private JButton getBtnSearch() {
 		if (btnSearch == null) {
-			btnSearch = new JButton("°Ë»öÇÏ±â");
+			btnSearch = new JButton("ê²€ìƒ‰í•˜ê¸°");
 			btnSearch.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
 					int selectedIndex = comboBox.getSelectedIndex();
 					if (selectedIndex == 0) {
-						JOptionPane.showMessageDialog(BookManager.this, "°Ë»öÇ×¸ñÀ» ¼±ÅÃÇØÁÖ¼¼¿ä", "error",
+						JOptionPane.showMessageDialog(BookManager.this, "ê²€ìƒ‰í•­ëª©ì„ ì„ íƒí•´ì£¼ì„¸ìš”", "error",
 								JOptionPane.ERROR_MESSAGE);
 						return;
 					} // if
 					String word = tfSearch.getText();
 					if (word.isEmpty()) {
-						JOptionPane.showMessageDialog(BookManager.this, "°Ë»ö¾î ÀÔ·ÂÇØÁÖ¼¼¿ä", "error",
+						JOptionPane.showMessageDialog(BookManager.this, "ê²€ìƒ‰ì–´ ì…ë ¥í•´ì£¼ì„¸ìš”", "error",
 								JOptionPane.ERROR_MESSAGE);
 						return;
 					} // if
@@ -424,8 +437,12 @@ public class BookManager extends JFrame {
 					case 3:
 						field = "writer";
 						break;
+
 					case 4:
 						field = "kategorie";
+						break;
+					case 5:
+						field="location";
 						break;
 					}
 
@@ -434,24 +451,24 @@ public class BookManager extends JFrame {
 
 					if (list.size() > 0) {
 						for (BookVO book : list) {
-							textArea.append("Ã¥ÀÌ¸§:" + book.getName());
-							textArea.append("ÃâÆÇ»ç:" + book.getPublisher());
-							textArea.append("ÀÛ°¡:" + book.getWriter());
-							textArea.append("Ä«Å×°í¸®:" + book.getKategorie());
-							
+							textArea.append("ì±…ì´ë¦„:" + book.getName());
+							textArea.append("ì¶œíŒì‚¬:" + book.getPublisher());
+							textArea.append("ì‘ê°€:" + book.getWriter());
+							textArea.append("ì¹´í…Œê³ ë¦¬:" + book.getKategorie());
+							textArea.append("ìœ„ì¹˜:"+book.getLocation());
 							
 						
 						}
 
 					} else {// size()=0
-						textArea.append("°á°ú°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù");
+						textArea.append("ê²°ê³¼ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
 						
 					
 					}
 
 				}// action
 			});
-			btnSearch.setFont(new Font("HY¸ñ°¢ÆÄÀÓB", Font.BOLD, 15));
+			btnSearch.setFont(new Font("HYëª©ê°íŒŒì„B", Font.BOLD, 15));
 			btnSearch.setBackground(new Color(204, 204, 204));
 			btnSearch.setBounds(50, 153, 98, 28);
 		}
@@ -460,7 +477,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblKategorie() {
 		if (lblKategorie == null) {
-			lblKategorie = new JLabel("Ä«Å×°í¸®");
+			lblKategorie = new JLabel("ì¹´í…Œê³ ë¦¬");
 			lblKategorie.setBounds(182, 12, 55, 18);
 		}
 		return lblKategorie;
@@ -469,7 +486,7 @@ public class BookManager extends JFrame {
 	private JTextField getTfKategorie() {
 		if (tfKategorie == null) {
 			tfKategorie = new JTextField();
-			tfKategorie.setBounds(251, 10, 114, 22);
+			tfKategorie.setBounds(259, 11, 114, 22);
 			tfKategorie.setColumns(10);
 		}
 		return tfKategorie;
@@ -477,8 +494,8 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblTotal() {
 		if (lblTotal == null) {
-			lblTotal = new JLabel("ÀüÃ¼±â·Ï");
-			lblTotal.setFont(new Font("HY¸ñ°¢ÆÄÀÓB", Font.BOLD, 15));
+			lblTotal = new JLabel("ì „ì²´ê¸°ë¡");
+			lblTotal.setFont(new Font("HYëª©ê°íŒŒì„B", Font.BOLD, 15));
 			lblTotal.setForeground(new Color(0, 0, 0));
 			lblTotal.setOpaque(true);
 			lblTotal.setBackground(new Color(51, 102, 255));
@@ -499,7 +516,7 @@ public class BookManager extends JFrame {
 
 	private JButton getBtnTotal() {
 		if (btnTotal == null) {
-			btnTotal = new JButton("Åì¾Æº¸±â");
+			btnTotal = new JButton("í†ºì•„ë³´ê¸°");
 			btnTotal.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -511,14 +528,15 @@ public class BookManager extends JFrame {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss");
 
 					for (BookVO book : list) {
-						textArea_1.append(String.format("¹øÈ£:%d\n", book.getNum()));
-						textArea_1.append(String.format("Ã¥Á¦¸ñ:%s\n", book.getName()));
-						textArea_1.append(String.format("ÀÛ°¡:%s\n", book.getWriter()));
-						textArea_1.append(String.format("ÃâÆÇ»ç:%s\n", book.getPublisher()));
-						textArea_1.append(String.format("Ä«Å×°í¸®:%s\n", book.getKategorie()));
-						textArea_1.append(String.format("°¡°İ:%s\n", book.getCount()));
+						textArea_1.append(String.format("ë²ˆí˜¸:%d\n", book.getNum()));
+						textArea_1.append(String.format("ì±…ì œëª©:%s\n", book.getName()));
+						textArea_1.append(String.format("ì‘ê°€:%s\n", book.getWriter()));
+						textArea_1.append(String.format("ì¶œíŒì‚¬:%s\n", book.getPublisher()));
+						textArea_1.append(String.format("ì¹´í…Œê³ ë¦¬:%s\n", book.getKategorie()));
+						textArea_1.append(String.format("ìœ„ì¹˜:%s\n", book.getLocation()));
+						textArea_1.append(String.format("ê°€ê²©:%s\n", book.getCount()));
 						String strRegDate = sdf.format(book.getRegdate());
-						textArea_1.append(String.format("µî·Ï³¯Â¥ : %s\n\n", strRegDate));
+						textArea_1.append(String.format("ë“±ë¡ë‚ ì§œ : %s\n\n", strRegDate));
 					} // for
 
 				}
@@ -529,7 +547,7 @@ public class BookManager extends JFrame {
 
 	private JButton getBtnModify() {
 		if (btnModify == null) {
-			btnModify = new JButton("¼öÁ¤ÇÏ±â");
+			btnModify = new JButton("ìˆ˜ì •í•˜ê¸°");
 			btnModify.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -540,6 +558,7 @@ public class BookManager extends JFrame {
 					bookVO.setWriter(tfWriter1.getText());
 					bookVO.setPublisher(tfPublisher1.getText());
 					bookVO.setKategorie(tfKategorie1.getText());
+					bookVO.setLocation(tfLocation1.getText());
 					bookVO.setCount(tfCount1.getText());
 					bookVO.setRegdate(new Timestamp(System.currentTimeMillis()));
 
@@ -547,7 +566,7 @@ public class BookManager extends JFrame {
 					
 					clearInput_1();
 
-					btnTotal.doClick();// ÀüÃ¼º¸±â
+					btnTotal.doClick();// ì „ì²´ë³´ê¸°
 				}
 			});
 		}
@@ -558,7 +577,7 @@ public class BookManager extends JFrame {
 
 	private JButton getBtnRemove() {
 		if (btnRemove == null) {
-			btnRemove = new JButton("»èÁ¦ÇÏ±â");
+			btnRemove = new JButton("ì‚­ì œí•˜ê¸°");
 			btnRemove.addActionListener(new ActionListener() {
 
 				@Override
@@ -566,7 +585,7 @@ public class BookManager extends JFrame {
 
 					int num = Integer.parseInt(tfNum1.getText());
 
-					int result = JOptionPane.showConfirmDialog(BookManager.this, "Á¤¸» »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î", "Delete",
+					int result = JOptionPane.showConfirmDialog(BookManager.this, "ì •ë§ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ", "Delete",
 							JOptionPane.YES_NO_OPTION);
 
 					if (result == JOptionPane.YES_OPTION) {
@@ -574,7 +593,7 @@ public class BookManager extends JFrame {
 						
 						clearInput_1();
 
-						btnTotal.doClick();// ÀüÃ¼º¸±â
+						btnTotal.doClick();// ì „ì²´ë³´ê¸°
 						
 						
 						
@@ -614,7 +633,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblName1() {
 		if (lblName1 == null) {
-			lblName1 = new JLabel("Ã¥Á¦¸ñ");
+			lblName1 = new JLabel("ì±…ì œëª©");
 		}
 		return lblName1;
 	}
@@ -638,7 +657,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblWriter1() {
 		if (lblWriter1 == null) {
-			lblWriter1 = new JLabel("ÀÛ°¡");
+			lblWriter1 = new JLabel("ì‘ê°€");
 		}
 		return lblWriter1;
 	}
@@ -662,7 +681,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblPublisher1() {
 		if (lblPublisher1 == null) {
-			lblPublisher1 = new JLabel("ÃâÆÇ»ç");
+			lblPublisher1 = new JLabel("ì¶œíŒì‚¬");
 		}
 		return lblPublisher1;
 	}
@@ -686,7 +705,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblKategorie1() {
 		if (lblKategorie1 == null) {
-			lblKategorie1 = new JLabel("Ä«Å×°í¸®");
+			lblKategorie1 = new JLabel("ì¹´í…Œê³ ë¦¬");
 		}
 		return lblKategorie1;
 	}
@@ -710,7 +729,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblCount1() {
 		if (lblCount1 == null) {
-			lblCount1 = new JLabel("°¡°İ");
+			lblCount1 = new JLabel("ê°€ê²©");
 		}
 		return lblCount1;
 	}
@@ -721,30 +740,6 @@ public class BookManager extends JFrame {
 			tfCount1.setColumns(10);
 		}
 		return tfCount1;
-	}
-
-	private JPanel getPanel_5() {
-		if (panel_5 == null) {
-			panel_5 = new JPanel();
-			panel_5.add(getLblNum());
-			panel_5.add(getTfNum());
-		}
-		return panel_5;
-	}
-
-	private JTextField getTfNum() {
-		if (tfNum == null) {
-			tfNum = new JTextField();
-			tfNum.setColumns(10);
-		}
-		return tfNum;
-	}
-
-	private JLabel getLblNum() {
-		if (lblNum == null) {
-			lblNum = new JLabel("¹øÈ£");
-		}
-		return lblNum;
 	}
 
 	private JPanel getPanel_6_1() {
@@ -770,11 +765,11 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblStorage() {
 		if (lblStorage == null) {
-			lblStorage = new JLabel("Ã¥¼ö³³");
+			lblStorage = new JLabel("ì±…ìˆ˜ë‚©");
 			lblStorage.setBackground(new Color(255, 248, 220));
-			lblStorage.setFont(new Font("ÇÑÄÄ»ê¶æµ¸¿ò", Font.BOLD, 16));
+			lblStorage.setFont(new Font("í•œì»´ì‚°ëœ»ë‹ì›€", Font.BOLD, 16));
 			lblStorage.setHorizontalAlignment(SwingConstants.CENTER);
-			lblStorage.setOpaque(true);// ºÒÅõ¸í
+			lblStorage.setOpaque(true);// ë¶ˆíˆ¬ëª…
 		}
 		return lblStorage;
 	}
@@ -798,7 +793,7 @@ public class BookManager extends JFrame {
 
 	private JLabel getLblNum1() {
 		if (lblNum1 == null) {
-			lblNum1 = new JLabel("¹øÈ£");
+			lblNum1 = new JLabel("ë²ˆí˜¸");
 		}
 		return lblNum1;
 	}
@@ -831,5 +826,26 @@ public class BookManager extends JFrame {
 			textArea_1 = new JTextArea();
 		}
 		return textArea_1;
+	}
+	private JPanel getPanel_5() {
+		if (panel_5 == null) {
+			panel_5 = new JPanel();
+			panel_5.add(getLblLocation1());
+			panel_5.add(getTfLocation1());
+		}
+		return panel_5;
+	}
+	private JLabel getLblLocation1() {
+		if (lblLocation1 == null) {
+			lblLocation1 = new JLabel("\uC704\uCE58");
+		}
+		return lblLocation1;
+	}
+	private JTextField getTfLocation1() {
+		if (tfLocation1 == null) {
+			tfLocation1 = new JTextField();
+			tfLocation1.setColumns(10);
+		}
+		return tfLocation1;
 	}
 }// class
