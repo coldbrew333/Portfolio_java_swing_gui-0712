@@ -17,6 +17,7 @@ public class BookVO {
 	private String writer;
 	private String publisher;
 	private String kategorie;
+	private String location;
 	private String count;
 	private Timestamp regdate;
 }	
